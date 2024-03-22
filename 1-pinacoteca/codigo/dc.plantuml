@@ -1,0 +1,69 @@
+@startuml nombre
+
+title Pinacoteca
+
+class Pinacoteca {
+
+}
+
+class Ubicacion {
+    - provincia
+    - ciudad
+    - direccion
+}
+
+class Cuadro {
+    - codigo
+    - nombre
+    - medidas
+    - fechaCreacion
+}
+
+interface Tecnica {
+
+}
+
+class Oleo
+class Acuarela
+class OtrasTecnicas
+
+Tecnica <|-- Oleo
+Tecnica <|-- Acuarela
+Tecnica <|-- OtrasTecnicas
+
+class Pintor {
+    - nombre
+    - apellido
+    - seudonimo
+    - fechaNacimiento
+    - lugarNacimiento: Ubicacion
+    - fechaFallecimiento
+    - lugarFallecimiento: Ubicacion
+    - maestro: Pintor 
+}
+
+class EscuelaDePintura {
+    - nombre
+    - localizacion: Ubicacion
+    - fechaCreacion
+
+}
+
+class Mecena {
+    - nombre
+    - apellido
+    - localizacion: Ubicacion
+    - fechaInicio
+    - fechaFin
+}
+
+Pinacoteca *-- Ubicacion
+Pinacoteca <-- Cuadro
+
+Cuadro *-- Tecnica
+Cuadro "1..*" <--> "1..*" Pintor
+
+Pintor "0..*" --o "1" EscuelaDePintura
+Pintor "1" -- "0..*" Mecena
+
+@enduml
