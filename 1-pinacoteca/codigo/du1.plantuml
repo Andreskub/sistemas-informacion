@@ -1,0 +1,24 @@
+@startuml Consultar Informacion del Pintor
+
+title Consultar Informacion del Pintor
+left to right direction
+
+actor Cliente as c
+actor Pinacoteca as p
+
+rectangle Sistema {
+  usecase "Solicitar información de pintor" as UC1
+  usecase "Buscar en base de datos" as UC2
+  usecase "Mostrar información del pintor" as UC3
+}
+
+Sistema .. p
+
+c -- UC1
+p -left- UC1
+p -left- UC2
+p -left- UC3
+c -- UC3
+
+
+@enduml

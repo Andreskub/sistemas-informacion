@@ -1,0 +1,22 @@
+@startuml Agregar Cuadro
+
+title Agregar Cuadro
+left to right direction
+
+actor Usuario as u
+actor Pinacoteca as p
+
+rectangle Sistema {
+  usecase "Agregar cuadro" as UC1
+  usecase "Validar datos del cuadro" as UC2
+  usecase "Guardar información del cuadro en la base de datos" as UC3
+}
+
+Sistema .. p
+
+u -- UC1
+p -left- UC1
+p -left- UC2
+p -left- UC3
+
+@enduml

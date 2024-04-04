@@ -1,0 +1,24 @@
+@startuml Buscar Mecenas de un Pintor de un Cuadro
+
+title Buscar Mecenas de un Pintor de un Cuadro
+left to right direction
+
+actor Usuario as u
+actor Pinacoteca as p
+
+rectangle Sistema {
+  usecase "Consultar Pintor del Cuadro" as UC1
+  usecase "Consultar Mecenas del Pintor" as UC2
+  usecase "Mostrar mecenas del pintor" as UC3
+}
+
+Sistema .. p
+
+u -- UC1
+p -left- UC1
+u -- UC2
+p -left- UC2
+u -- UC3
+p -left- UC3
+
+@enduml

@@ -1,0 +1,161 @@
+@startuml Pinacoteca
+
+title Pinacoteca
+
+class Pinacoteca {
+    - nombre
+    - metrosCuadrados
+    - cuadros: ArrayList<Cuadro>
+
+    + Pinacoteca(nombre, ciudad, provincia, direccion, metrosCuadrados)
+    + agregarCuadro(cuadro: Cuadro)
+    + eliminarCuadro(cuadro: Cuadro)
+    + getCuadros(): ArrayList<Cuadro>
+    + getCuadro(codigo): Cuadro
+    + getUbicacion(): Ubicacion
+    + getMetrosCuadrados(): float
+    + cambiarUbicacion(nuevaUbicacion: Ubicacion)
+}
+
+class Ubicacion {
+    - provincia
+    - ciudad
+    - direccion
+
+    + Ubicacion(provincia, ciudad, direccion)
+    + setUbicacionSinDireccion(provincia, ciudad)
+    + getProvincia()
+    + getCiudad()
+    + getDireccion()
+}
+
+class Cuadro {
+    - codigo
+    - nombre
+    - medidas
+    - fechaCreacion
+    - idPintor
+    - periodoAutor
+
+    + Cuadro(codigo, nombre, medidas, fechaCreacion)
+    + getCodigo()
+    + getNombre()
+    + getMedidas()
+    + getFechaCreacion()
+    + getTecnica(): Tecnica
+    + getTema(): Tema
+    + getDescripcionTema()
+    + setCodigo(codigo)
+    + setNombre(nombre)
+    + getPeriodoAutor()
+}
+
+interface Tecnica {
+}
+
+class Oleo {
+}
+
+class Acuarela {
+}
+
+class OtrasTecnicas {
+}
+
+Tecnica <|.. Oleo
+Tecnica <|.. Acuarela
+Tecnica <|.. OtrasTecnicas
+
+interface Tema {
+}
+
+class NaturalezaMuerta {
+}
+
+class Paisaje {
+}
+
+class Retrato {
+}
+
+Tema <|.. NaturalezaMuerta
+Tema <|.. Paisaje
+Tema <|.. Retrato
+
+class Pintor {
+    - idPintor
+    - nombre
+    - apellido
+    - seudonimo
+    - fechaNacimiento
+    - lugarNacimiento: Ubicacion
+    - fechaFallecimiento
+    - lugarFallecimiento: Ubicacion
+    - maestro: Pintor
+    - mecenazgo: ArrayList<Mecena>
+    - idEscuelaDePintura: EscuelaDePintura
+
+    + Pintor(nombre, apellido, seudonimo, fechaNacimiento, lugarNacimiento, fechaFallecimiento, lugarFallecimiento)
+    + getNombre()
+    + getApellido()
+    + getSeudonimo()
+    + getFechaNacimiento()
+    + getLugarNacimiento(): Ubicacion
+    + getFechaFallecimiento()
+    + getLugarFallecimiento(): Ubicacion
+    + getMaestro(): Pintor
+    + getMecenazgo(): ArrayList<Mecena>
+    + getEscuelaDePintura(): EscuelaDePintura
+    + setSeudonimo(seudonimo)
+    + setFechaFallecimiento(fechaFallecimiento)
+    + setLugarFallecimiento(lugarFallecimiento: Ubicacion)
+    + setMaestro(maestro: Pintor)
+}
+
+class EscuelaDePintura {
+    - idEscuelaDePintura
+    - nombre
+    - localizacion: Ubicacion
+    - fechaCreacion
+
+    + EscuelaDePintura(nombre, localizacion, fechaCreacion)
+    + getNombre()
+    + getLocalizacion(): Ubicacion
+    + getFechaCreacion()
+    + setNombre(nombre)
+    + setLocalizacion(localizacion: Ubicacion)
+}
+
+class Mecena {
+    - idMecena
+    - nombre
+    - apellido
+    - localizacion: Ubicacion
+    - fechaInicio
+    - fechaFin
+    - idPintor
+
+    + Mecena(nombre, apellido, localizacion, fechaInicio, fechaFin)
+    + getNombre()
+    + getApellido()
+    + getLocalizacion(): Ubicacion
+    + getFechaInicio()
+    + getFechaFin()
+    + setNombre(nombre)
+    + setApellido(apellido)
+    + setLocalizacion(localizacion: Ubicacion)
+    + setFechaInicio(fechaInicio)
+    + setFechaFin(fechaFin)
+}
+
+Pinacoteca *-right- Ubicacion
+Pinacoteca "1" o-- "0..*" Cuadro
+
+Cuadro *-- Tecnica
+Cuadro *-- Tema
+Cuadro "1..*" <-right-> "1" Pintor
+
+Pintor "0..*" --o "1" EscuelaDePintura
+Pintor "1" -- "0..*" Mecena
+
+@enduml
