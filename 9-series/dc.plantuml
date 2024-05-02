@@ -1,0 +1,63 @@
+@startuml Peliculas
+
+title Peliculas y Series
+
+abstract class Elemento {
+    - titulo
+    - descripción
+    - duración
+    - tráiler
+
+    {abstract} + obtenerTitulo(): string
+    {abstract} + obtenerGenero(): string
+    {abstract} + obtenerFechaLanzamiento(): string
+}
+
+class Pelicula {
+    - duracion: int
+    - director: string
+    + Pelicula(titulo: string, genero: string, fechaLanzamiento: string, duracion: int, director: string)
+    + obtenerDuracion(): int
+    + obtenerDirector(): string
+}
+
+class Serie {
+    - numeroTemporadas: int
+    - episodiosPorTemporada: int
+    + Serie(titulo: string, genero: string, fechaLanzamiento: string, numeroTemporadas: int, episodiosPorTemporada: int)
+    + obtenerNumeroTemporadas(): int
+    + obtenerEpisodiosPorTemporada(): int
+}
+
+class Servidor {
+    - elementosMultimedia: Elemento[]
+    + Servidor()
+    + agregarElemento(elemento: Elemento): void
+    + buscarPorTitulo(titulo: string): Elemento[]
+    + buscarPorGenero(genero: string): Elemento[]
+}
+
+interface MotorBusqueda {
+    {abstract} + buscarPorTitulo(titulo: string): Elemento[]
+    {abstract} + buscarPorGenero(genero: string): Elemento[]
+}
+
+note left of MotorBusqueda: puede tener distintos algoritmos
+
+class Plataforma {
+    - servidores: Servidor
+    + Plataforma()
+    + agregarServidor(servidor: Servidor): void
+    + buscarEnServidores(titulo: string): Elemento[]
+}
+
+Elemento <|.. Pelicula
+Elemento <|.. Serie
+
+Servidor *-- Elemento
+Plataforma *-- Servidor
+MotorBusqueda <|.. Servidor
+
+note right of Elemento: Se pueden agregar actores
+
+@enduml

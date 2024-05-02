@@ -1,0 +1,146 @@
+@startuml Personajes Argentina
+
+title Personajes Argentina
+
+class Personaje {
+    - idPersonaje: int
+    - nombre: string
+    - apellido: string
+    - fechaNacimiento: date
+    - fechaDefuncion: date
+    - idOcupacion[]
+    - idEventoHistorico[]
+    - idBibliografia
+    - idPadres: Padres
+
+    + obtenerOcupaciones(): Ocupacion[]
+    + agregarOcupacion(ocupacion: Ocupacion)
+    + obtenerEventosHistoricos(): EventoHistorico[]
+    + agregarEventoHistorico(evento: EventoHistorico)
+    + obtenerCancionesFolkloricas(): CancionFolklorica[]
+    + agregarCancionFolklorica(cancion: CancionFolklorica)
+    + obtenerBibliografia(): Bibliografia[]
+    + agregarBibliografia(bibliografia: Bibliografia)
+}
+
+class Ocupacion {
+    - idOcupacion: int
+    - tipo: string
+    - fechaInicio: date
+    - fechaFin: date
+    - lugar: string
+    - idPersonaje
+    - idLugar
+
+    + Ocupacion(): void
+    + getIdOcupacion(): int
+    + setIdOcupacion(idOcupacion: int): void
+    + getTipo(): string
+    + setTipo(tipo: string): void
+    + getFechaInicio(): date
+    + setFechaInicio(fechaInicio: date): void
+    + getFechaFin(): date
+    + setFechaFin(fechaFin: date): void
+    + getLugar(): string
+    + setLugar(lugar: string): void
+}
+
+class EventoHistorico {
+    - idEventoHistorico: int
+    - nombre: string
+    - fecha: date
+    - lugar: string
+    - idPersonaje[]
+    - idLugar
+
+    + EventoHistorico(): void
+    + getIdEventoHistorico(): int
+    + setIdEventoHistorico(idEventoHistorico: int): void
+    + getNombre(): string
+    + setNombre(nombre: string): void
+    + getFecha(): date
+    + setFecha(fecha: date): void
+    + getLugar(): string
+    + setLugar(lugar: string): void
+}
+
+class CancionFolklorica {
+    - idCancion: int
+    - nombre: string
+    - autor: string
+    - fecha: date
+    - genero: string
+    - idPersonaje
+
+    + CancionFolklorica(): void
+    + getIdCancion(): int
+    + setIdCancion(idCancion: int): void
+    + getNombre(): string
+    + setNombre(nombre: string): void
+    + getAutor(): string
+    + setAutor(autor: string): void
+    + getFecha(): date
+    + setFecha(fecha: date): void
+    + getGenero(): string
+    + setGenero(genero: string): void
+}
+
+class Bibliografia {
+    - idBibliografia: int
+    - fuente: string
+    - tomo: string
+    - pagina: int
+    - idPersonaje
+
+    + Bibliografia(): void
+    + getIdBibliografia(): int
+    + setIdBibliografia(idBibliografia: int): void
+    + getFuente(): string
+    + setFuente(fuente: string): void
+    + getTomo(): string
+    + setTomo(tomo: string): void
+    + getPagina(): int
+    + setPagina(pagina: int): void
+}
+
+class Lugar {
+    - idLugar: int
+    - nombre: string
+    - tipo: string
+    - ubicacion: string
+
+    + Lugar(): void
+    + getIdLugar(): int
+    + setIdLugar(idLugar: int): void
+    + getNombre(): string
+    + setNombre(nombre: string): void
+    + getTipo(): string
+    + setTipo(tipo: string): void
+    + getUbicacion(): string
+    + setUbicacion(ubicacion: string): void
+}
+
+class Padres {
+    - idPadres: int
+    - nombrePadre: string
+    - apellidoPadre: string
+    - nombreMadre: string
+    - apellidoMadre: string
+
+    + Padres(): void
+    + getIdPadres(): int
+    + setIdPadres(idPadres: int): void
+    + getNombrePadre(): string
+    + setNombrePadre(nombrePadre: string): void
+    + getApellidoPadre(): string
+}
+
+Personaje "1" --> "0..*" Ocupacion
+Personaje "1" *--> "1..*" EventoHistorico
+Personaje "1" --o "0..*" CancionFolklorica
+Personaje "1" --> "0..*" Bibliografia
+Personaje "1" --> "0..2" Padres
+Ocupacion "1" --> "1" Lugar
+EventoHistorico "1" --> "1" Lugar
+
+@enduml
