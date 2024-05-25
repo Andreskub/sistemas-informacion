@@ -1,0 +1,28 @@
+@startuml Diagrama Caso Uso 3
+
+title Obtener Lugar de Evento Historico
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor Sistema as s
+
+rectangle Sistema {
+  usecase "Solicitar ubicacion de evento historico" as UC1
+  usecase "Buscar evento historico" as UC2
+  usecase "Obtener ubicacion de evento historico" as UC3
+  usecase "Mostrar ubicacion de evento historico" as UC4
+}
+
+Sistema .. s
+
+c -- UC1
+s -left- UC1
+s -left- UC2
+s -left- UC3
+s -left- UC4
+c -- UC4
+
+
+@enduml

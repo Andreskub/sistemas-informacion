@@ -1,0 +1,29 @@
+@startuml Diagrama Caso Uso 2
+
+title Solicitar canciones de personaje
+
+left to right direction
+skinparam packageStyle rectangle
+
+
+actor Cliente as c
+actor Sistema as s
+
+rectangle Sistema {
+  usecase "Solicitar canciones folkloricas del personaje" as UC1
+  usecase "Obtener todas las canciones" as UC2
+  usecase "Filtrar canciones por idPersonaje" as UC3
+  usecase "Mostrar canciones del personaje" as UC4
+}
+
+Sistema .. s
+
+c -- UC1
+s -left- UC1
+s -left- UC2
+s -left- UC3
+s -left- UC4
+c -- UC4
+
+
+@enduml

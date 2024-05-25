@@ -10,7 +10,7 @@ class Personaje {
     - fechaDefuncion: date
     - idOcupacion[]
     - idEventoHistorico[]
-    - idBibliografia
+    - idBibliografia[]
     - idPadres: Padres
 
     + obtenerOcupaciones(): Ocupacion[]
@@ -30,7 +30,7 @@ class Ocupacion {
     - fechaFin: date
     - lugar: string
     - idPersonaje
-    - idLugar
+    - idUbicacion
 
     + Ocupacion(): void
     + getIdOcupacion(): int
@@ -51,7 +51,7 @@ class EventoHistorico {
     - fecha: date
     - lugar: string
     - idPersonaje[]
-    - idLugar
+    - idUbicacion
 
     + EventoHistorico(): void
     + getIdEventoHistorico(): int
@@ -103,15 +103,15 @@ class Bibliografia {
     + setPagina(pagina: int): void
 }
 
-class Lugar {
-    - idLugar: int
+class Ubicacion {
+    - idUbicacion: int
     - nombre: string
     - tipo: string
     - ubicacion: string
 
-    + Lugar(): void
+    + Ubicacion(): void
     + getIdLugar(): int
-    + setIdLugar(idLugar: int): void
+    + setIdLugar(idUbicacion: int): void
     + getNombre(): string
     + setNombre(nombre: string): void
     + getTipo(): string
@@ -136,11 +136,11 @@ class Padres {
 }
 
 Personaje "1" --> "0..*" Ocupacion
-Personaje "1" *--> "1..*" EventoHistorico
+Personaje "1" *-- "1..*" EventoHistorico
 Personaje "1" --o "0..*" CancionFolklorica
 Personaje "1" --> "0..*" Bibliografia
 Personaje "1" --> "0..2" Padres
-Ocupacion "1" --> "1" Lugar
-EventoHistorico "1" --> "1" Lugar
+Ocupacion "1" --> Ubicacion
+EventoHistorico "1" --> Ubicacion
 
 @enduml

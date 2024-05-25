@@ -1,0 +1,28 @@
+@startuml Diagrama Caso Uso 1
+
+title Solicitar bibliografia de personaje
+
+left to right direction
+skinparam packageStyle rectangle
+
+
+actor Cliente as c
+actor Sistema as s
+
+rectangle Sistema {
+  usecase "Solicitar bibliografia de persoaje" as UC1
+  usecase "Buscar personaje en base de datos" as UC2
+  usecase "Obtiene bibliografia del personaje" as UC3
+  usecase "Mostrar bibliografia del personaje" as UC4
+}
+
+Sistema .. s
+
+c -- UC1
+s -left- UC1
+s -left- UC2
+s -left- UC3
+s -left- UC4
+c -- UC4
+
+@enduml

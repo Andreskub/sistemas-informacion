@@ -1,0 +1,122 @@
+@startuml dc
+
+title Diagrama de Clase TP 3 - Corralón
+
+class Pedido {
+    -idPedido: int
+    -proveedor: idProveedor
+    -fechaPedido: Date
+    -materiales: Map<idMaterial, cantidad>
+
+    +generarPedido()
+    +agregarMaterial(idMaterial): void
+    +eliminarMaterial(idMaterial): void
+
+}
+
+abstract class Material {
+    -idMaterial: int
+    -descripcion: String
+    -descripcionGeneral: String
+    -categoria: String
+    -subCategoria: String
+    -marca: String
+    -fechaUltimaActualizacion: Date
+    -detallesTecnicos: String
+    -cantidadMinReposicion: int
+    -proveedor: idProveedor
+
+    +getTimestamp(): Date
+    +actualizarPrecio(nuevoPrecioCosto, nuevoPrecioPublico): void
+    +actualizarStock(nuevaCantidad): void
+    +necesitaReposicion(): boolean
+    +actualizarPrecioPorCategoria(categoria, nuevoPrecioCosto, nuevoPrecioPublico): void
+    +actualizarPrecioPorProveedor(idProveedor, nuevoPrecioCosto, nuevoPrecioPublico): void
+    +modificarMinimoReposicion(idMaterial, nuevaCantidadMinima): void
+}
+
+note as N1
+    El método getTimestamp() de <b><color:royalBlue>Material</color>
+    puede ser llamado desde <b><color:royalBlue>Precio</color> y <b><color:royalBlue>Stock</color>
+    para obtener la fecha.
+end note
+
+class MaterialCorralon {
+    -imagen: jpg
+    -observaciones: String
+
+    +setObservacion(observacion):void
+    +getObservacion(): String
+    +setImagen(imagen): void
+    +getImagen():jpg
+}
+
+class MaterialProveedor {
+    -codigoRepuesto: String
+
+    +setCodigorepuesto(codigoRepuesto): void
+    +getCodigoRepuesto(): String
+}
+
+class Stock {
+    -idMaterial
+    -cantidad: int
+    -fechaUltimaActualizacion: Date
+
+    +actualizarCantidad(nuevaCantidad): void
+}
+
+class Precio {
+    -idMaterial
+    -precioCosto: double
+    -precioPublico: double
+    -fechaUltimaActualizacion: Date
+
+    + actualizarPrecio(nuevoPrecioCosto, nuevoPrecioPublico): void
+}
+
+interface Proveedor {
+    -IdProveedor: int
+    -nombre: String
+    -contacto: String
+    -direccion: String
+    -telefono: String
+    -email: String
+    -materiales: List<idMaterial>
+    -pedidos: List<idPedido>
+
+    +agregarMaterial(idMaterial): void
+    +eliminarMaterial(idMaterial): void
+    +modificarMaterial(idMaterial): void
+    +modificarMinimoReposicion(idMaterial, nuevaCantidadMinima): void
+    +listarArticulosFaltantes(): List<Material.class>
+    +listarStock(): List<Material.class>
+    +valoracionExistencias(): double
+
+}
+
+class Corralon {
+
+}
+
+class ProveedorDeCorralon {
+
+}
+
+
+Proveedor "1" *-up- "0..*" Pedido
+Material "1" *-up- "0..*" Pedido
+
+Proveedor "1" o-left- "0..*" Material
+
+Material "1" *-up- "1" Stock
+Material "1" *-left- "1" Precio
+
+Material <|-down- MaterialCorralon
+Material <|-down- MaterialProveedor
+
+Proveedor <|.down. Corralon
+Proveedor <|.down. ProveedorDeCorralon
+
+
+@enduml
