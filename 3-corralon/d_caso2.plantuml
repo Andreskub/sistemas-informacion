@@ -1,0 +1,29 @@
+@startuml Diagrama Caso Uso 2
+
+title Solicitar cambio de precio Material
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Corralon as c
+actor Material as m
+
+rectangle Sistema {
+  usecase "Modificar precio adoquin" as UC1
+  usecase "Get fecha actual" as UC2
+  usecase "Actualizar precio adoquin" as UC3
+  usecase "Actualizar fecha precio" as UC4
+  usecase "Actualizar fecha material" as UC5
+}
+
+Sistema .. m
+
+c -- UC1
+m -left- UC1
+m -left- UC2
+m -left- UC3
+m -left- UC4
+m -left- UC5
+
+
+@enduml

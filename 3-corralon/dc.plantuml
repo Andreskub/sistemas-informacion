@@ -18,8 +18,7 @@ abstract class Material {
     -idMaterial: int
     -descripcion: String
     -descripcionGeneral: String
-    -categoria: String
-    -subCategoria: String
+    - idCategoria
     -marca: String
     -fechaUltimaActualizacion: Date
     -detallesTecnicos: String
@@ -58,12 +57,32 @@ class MaterialProveedor {
     +getCodigoRepuesto(): String
 }
 
+interface Categoria {
+    +getNombre(): String
+    +getDescripcion(): String
+    +getSubCategorias(): List<Categoria>
+    +addSubCategoria(Categoria): void
+}
+
+class CategoriaConcreta implements Categoria {
+    - idCategoria: int
+    -nombre: String
+    -descripcion: String
+    -subCategorias: List<Categoria>
+
+    +getNombre(): String
+    +getDescripcion(): String
+    +getSubCategorias(): List<Categoria>
+    +addSubCategoria(Categoria): void
+}
+
 class Stock {
     -idMaterial
     -cantidad: int
     -fechaUltimaActualizacion: Date
 
     +actualizarCantidad(nuevaCantidad): void
+    +getCantidad(): int
 }
 
 class Precio {
@@ -89,20 +108,31 @@ interface Proveedor {
     +eliminarMaterial(idMaterial): void
     +modificarMaterial(idMaterial): void
     +modificarMinimoReposicion(idMaterial, nuevaCantidadMinima): void
-    +listarArticulosFaltantes(): List<Material.class>
-    +listarStock(): List<Material.class>
+    +listarArticulosFaltantes(): List<Material>
+    +listarStock(): List<Material>
     +valoracionExistencias(): double
 
 }
 
-class Corralon {
+class Corralon implements Proveedor{
+
+    +actualizarPreciosPorCategoria(Categoria, nuevoPrecioCosto, nuevoPrecioPublico): void
+    +actualizarPreciosPorProveedor(Proveedor, nuevoPrecioCosto, nuevoPrecioPublico): void
+    +altaMaterial(Material): void
+    +bajaMaterial(Material): void
+    +modificarMaterial(Material): void
+    +modificarMinimoReposicion(Material, nuevaCantidadMinima): void
+    +listarArticulosFaltantes(): List<Material>
+    +listarStock(): List<Material>
+    +valoracionExistencias(): double
+    +generarPedidoAlProveedor(Material): Pedido
+    +obtenerEstadisticas(periodo): Map<Material, int>
 
 }
 
-class ProveedorDeCorralon {
-
+class ProveedorExterno implements Proveedor {
+    
 }
-
 
 Proveedor "1" *-up- "0..*" Pedido
 Material "1" *-up- "0..*" Pedido
@@ -110,13 +140,11 @@ Material "1" *-up- "0..*" Pedido
 Proveedor "1" o-left- "0..*" Material
 
 Material "1" *-up- "1" Stock
-Material "1" *-left- "1" Precio
+Material "1" *-up- "1" Precio
+Material o-left- Categoria
 
 Material <|-down- MaterialCorralon
 Material <|-down- MaterialProveedor
-
-Proveedor <|.down. Corralon
-Proveedor <|.down. ProveedorDeCorralon
 
 
 @enduml

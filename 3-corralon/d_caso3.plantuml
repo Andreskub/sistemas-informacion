@@ -1,0 +1,29 @@
+@startuml Diagrama Caso Uso 3
+
+title Agregar Material al Pedido
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Corralon as c
+actor ProovedorDeCorralon as p
+
+rectangle Sistema {
+  usecase "Alerta ladrillo rojo necesita reposicion" as UC1  
+  usecase "Solicitar reposicion de ladrillo rojo" as UC2
+  usecase "Buscar material por codigo de repuesto" as UC3
+  usecase "Buscar cantidad stock disponible" as UC4
+  usecase "Pedido confirmado" as UC5
+}
+
+Sistema .. p
+
+c -right- UC1
+c -- UC2
+p -left- UC2
+p -left- UC3
+p -left- UC4
+p -left- UC5
+c -- UC5
+
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+title DFD Nivel 0 - Sistema de Gestión de Corralón
+
+entity "Proveedor" as Proveedor
+
+process "Sistema de Gestión de Corralón" as Sistema
+
+entity "Almacén" as Almacen
+
+Proveedor -> Sistema: Pedido
+Sistema -> Proveedor: Pedido Confirmado
+Sistema -> Almacen: Materiales
+@enduml
