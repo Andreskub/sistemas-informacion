@@ -1,16 +1,35 @@
-@startuml
-title DFD Nivel 1 - Sistema de Gestión de Corralón
+@startuml aa
+title DFD Nivel 1 - Corralón de Materiales
 
-entity "Proveedor" as Proveedor
-entity "Almacén" as Almacen
+actor Cliente
+actor Proveedor
 
-process "1. Generar Pedido" as GenerarPedido
-process "2. Gestionar Materiales" as GestionarMateriales
-process "3. Actualizar Stock y Precio" as ActualizarStockPrecio
+rectangle "Sistema de Corralón de Materiales" {
+    rectangle "1.0 Gestionar Pedido" as gestionar_pedido {
+        Cliente --> (1.1 Solicitar Material)
+        (1.2 Confirmar Pedido) --> Cliente
+        (1.3 Crear Pedido) --> Pedidos
+        Pedidos --> (1.4 Obtener Información de Pedido)
+    }
 
-Proveedor -> GenerarPedido: Pedido
-GenerarPedido -> Proveedor: Pedido Confirmado
-GenerarPedido -> GestionarMateriales: Materiales
-GestionarMateriales -> ActualizarStockPrecio: Stock y Precio
-ActualizarStockPrecio -> Almacen: Información actualizada
+    rectangle "2.0 Gestionar Stock" as gestionar_stock {
+        (1.1 Solicitar Material) --> (2.1 Verificar Stock)
+        (2.2 Actualizar Stock) --> Materiales
+        Materiales --> (2.3 Obtener Datos de Material)
+        (2.4 Confirmar Stock) --> (1.2 Confirmar Pedido)
+        (2.5 Reposicionar Stock) --> (3.1 Gestionar Proveedores)
+    }
+
+    rectangle "3.0 Gestionar Proveedores" as gestionar_proveedores {
+        Proveedor --> (3.2 Suministrar Material)
+        (3.3 Pedido de Material) --> Proveedor
+        (3.4 Material Suministrado) --> (2.2 Actualizar Stock)
+        Proveedores --> (3.5 Obtener Información de Proveedor)
+    }
+
+    Pedidos
+    Materiales
+    Proveedores
+}
+
 @enduml

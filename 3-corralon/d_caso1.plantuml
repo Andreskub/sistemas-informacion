@@ -6,7 +6,7 @@ left to right direction
 skinparam packageStyle rectangle
 
 actor Corralon as c
-actor ProovedorDeCorralon as p
+actor ProveedorExterno as p
 
 rectangle Sistema {
   usecase "Alerta ladrillo rojo necesita reposicion" as UC1  

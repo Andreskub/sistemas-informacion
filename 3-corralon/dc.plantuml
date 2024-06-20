@@ -36,8 +36,8 @@ abstract class Material {
 
 note as N1
     El método getTimestamp() de <b><color:royalBlue>Material</color>
-    puede ser llamado desde <b><color:royalBlue>Precio</color> y <b><color:royalBlue>Stock</color>
-    para obtener la fecha.
+    puede ser invocado desde <b><color:royalBlue>Precio</color> y <b><color:royalBlue>Stock</color>
+    .super() para obtener la fecha.
 end note
 
 class MaterialCorralon {
