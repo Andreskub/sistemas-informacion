@@ -1,0 +1,27 @@
+@startuml Diagrama Caso Uso 3
+
+title Actualizar Estado del Envío
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Transportista as t
+actor Cleinte as c
+
+rectangle Sistema {
+  usecase "Registrar intento de entrega" as UC1
+  usecase "Actualizar estado del envío" as UC2
+  usecase "Notificar estado al cliente" as UC3
+}
+
+Sistema .. c
+
+t -- UC1
+
+t -- UC3
+c -left- UC3
+
+c -left- UC2
+t -- UC2
+
+@enduml

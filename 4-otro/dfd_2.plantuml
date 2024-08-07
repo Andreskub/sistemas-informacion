@@ -1,0 +1,46 @@
+@startuml
+actor Cliente
+actor Empleado
+actor Transportista
+
+rectangle Sistema {
+    Cliente -- (Registrar Paquete)
+    (Registrar Paquete) --> (Validar Información de Paquete)
+    (Validar Información de Paquete) --> (Guardar Información de Paquete)
+    (Guardar Información de Paquete) --> (Base de Datos)
+
+    Empleado -- (Registrar Cliente)
+    (Registrar Cliente) --> (Validar Información del Cliente)
+    (Validar Información del Cliente) --> (Guardar Información del Cliente)
+    (Guardar Información del Cliente) --> (Base de Datos)
+
+    Empleado -- (Asignar Transportista)
+    (Asignar Transportista) --> (Seleccionar Transportista)
+    (Seleccionar Transportista) --> (Asignar Paquete al Transportista)
+    (Asignar Paquete al Transportista) --> (Base de Datos)
+
+    Empleado -- (Generar Hoja de Ruta)
+    (Generar Hoja de Ruta) --> (Recuperar Información del Paquete)
+    (Recuperar Información del Paquete) --> (Crear Hoja de Ruta)
+    (Crear Hoja de Ruta) --> (Base de Datos)
+
+    Transportista -- (Actualizar Estado del Envío)
+    (Actualizar Estado del Envío) --> (Seleccionar Envío)
+    (Seleccionar Envío) --> (Actualizar Estado)
+    (Actualizar Estado) --> (Base de Datos)
+
+    Transportista -- (Registrar Intento de Entrega)
+    (Registrar Intento de Entrega) --> (Seleccionar Envío)
+    (Seleccionar Envío) --> (Registrar Intento)
+    (Registrar Intento) --> (Base de Datos)
+
+    Cliente -- (Reprogramar Entrega)
+    (Reprogramar Entrega) --> (Solicitar Nueva Fecha)
+    (Solicitar Nueva Fecha) --> (Validar Nueva Fecha)
+    (Validar Nueva Fecha) --> (Guardar Nueva Fecha)
+    (Guardar Nueva Fecha) --> (Base de Datos)
+
+    (Base de Datos) --> (Notificar Cliente)
+    (Notificar Cliente) --> Cliente
+}
+@enduml

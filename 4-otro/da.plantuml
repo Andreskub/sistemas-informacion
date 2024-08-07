@@ -1,0 +1,33 @@
+@startuml
+|Cliente|
+start
+:Registrar Paquete;
+:Ingresar Información del Paquete;
+:Enviar Información del Paquete;
+
+|Empleado|
+:Validar Información del Paquete;
+:Guardar Información del Paquete;
+:Asignar Transportista;
+:Generar Hoja de Ruta;
+:Notificar Transportista;
+
+|Transportista|
+:Recibir Hoja de Ruta;
+:Iniciar Entrega;
+:Intentar Entrega;
+
+if (Entrega Exitosa?) then (yes)
+    :Registrar Entrega Exitosa;
+    :Notificar Cliente;
+else (no)
+    :Registrar Intento Fallido;
+    :Programar Nueva Visita;
+    :Notificar Cliente;
+    if (Tercer Intento Fallido?) then (yes)
+        :Notificar Cliente para Retirar Paquete;
+    endif
+endif
+
+stop
+@enduml

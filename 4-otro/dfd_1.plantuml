@@ -1,0 +1,31 @@
+@startuml
+actor Cliente
+actor Empleado
+actor Transportista
+
+rectangle Sistema {
+    Cliente -- (Registrar Paquete)
+    (Registrar Paquete) --> (Base de Datos)
+
+    Empleado -- (Registrar Cliente)
+    (Registrar Cliente) --> (Base de Datos)
+
+    Empleado -- (Asignar Transportista)
+    (Asignar Transportista) --> (Base de Datos)
+
+    Empleado -- (Generar Hoja de Ruta)
+    (Generar Hoja de Ruta) --> (Base de Datos)
+
+    Transportista -- (Actualizar Estado del Envío)
+    (Actualizar Estado del Envío) --> (Base de Datos)
+
+    Transportista -- (Registrar Intento de Entrega)
+    (Registrar Intento de Entrega) --> (Base de Datos)
+
+    Cliente -- (Reprogramar Entrega)
+    (Reprogramar Entrega) --> (Base de Datos)
+
+    (Base de Datos) --> (Notificar Cliente)
+    (Notificar Cliente) --> Cliente
+}
+@enduml

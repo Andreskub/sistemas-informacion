@@ -1,0 +1,27 @@
+@startuml Diagrama Caso Uso 1
+
+title Registrar Paquete
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor EmpresaGestora as e
+
+rectangle Sistema {
+  usecase "Ingresar información del paquete" as UC1
+  usecase "Validar datos del paquete" as UC2
+  usecase "Guardar paquete en el sistema" as UC3
+  usecase "Notificar confirmación de registro" as UC4
+}
+
+Sistema .. e
+
+c -right- UC1
+c -- UC2
+e -left- UC2
+e -left- UC3
+e -left- UC4
+c -- UC4
+
+@enduml

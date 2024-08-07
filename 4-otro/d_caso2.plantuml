@@ -1,0 +1,27 @@
+@startuml Diagrama Caso Uso 2
+
+title Asignar Transportista
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor EmpresaGestora as e
+actor Transportista as t
+
+rectangle Sistema {
+  usecase "Seleccionar transportista disponible" as UC1
+  usecase "Asignar transportista al paquete" as UC2
+  usecase "Generar hoja de ruta" as UC3
+  usecase "Notificar asignación al transportista" as UC4
+}
+
+Sistema .. t
+
+e -right- UC1
+e -- UC2
+e -- UC3
+t -left- UC2
+t -left- UC4
+e -- UC4
+
+@enduml

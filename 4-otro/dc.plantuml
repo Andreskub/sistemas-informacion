@@ -1,0 +1,80 @@
+@startuml
+
+class EmpresaGestora {
+    - nombre: String
+    - direccion: String
+    - telefono: String
+    - email: String
+}
+
+class Cliente {
+    - apellido: String
+    - nombre: String
+    - documento: String
+    - direccion: String
+    - entreCalles: String
+    - localidad: String
+    - provincia: String
+}
+
+class Paquete {
+    - codigo: String
+    - peso: double
+    - dimensiones: String
+    - status: String
+}
+
+class EmpresaTransportista {
+    - nombre: String
+    - direccion: String
+    - telefono: String
+    - email: String
+}
+
+class Transportista {
+    - nombre: String
+    - documento: String
+    - tipo: String // Empresa o Monotributista
+    - vencimientoRegistro: Date
+    - datosVehiculo: String
+    - polizaVehiculo: String
+    - ultimaVTV: Date
+    - cargaUtil: double
+
+    + puedeTransportar(peso: double): boolean
+}
+
+class Envio {
+    - fechaEnvio: Date
+    - fechaEntrega: Date
+    - estado: String // Recibido, En tránsito, Entregado, En almacén
+    - intentos: int
+    - proximaVisita: Date
+
+    + registrarIntentoFallido(motivo: String): void
+    + programarNuevaVisita(fecha: Date): void
+    + actualizarEstado(nuevoEstado: String): void
+}
+
+class HojaDeRuta {
+    - fecha: Date
+    - detallesMercaderia: String
+    - destino: String
+    - receptor: String
+    - fechaRecepcion: Date
+    - motivoNoEntrega: String
+
+    + registrarEntrega(receptor: String, fecha: Date, hora: String): void
+    + registrarNoEntrega(motivo: String, fecha: Date, hora: String): void
+}
+
+EmpresaGestora "1" *--- "0..*" Cliente
+EmpresaGestora "1" *--- "0..*" Paquete
+Cliente "1" --left-- "0..*" Paquete
+Paquete "1" *-- "0..*" Envio
+Envio "1" *-- "1" HojaDeRuta
+HojaDeRuta "1" -right- "1" Transportista
+EmpresaGestora "1" -right- "0..*" EmpresaTransportista
+EmpresaTransportista "1" *-- "1..*" Transportista
+
+@enduml
