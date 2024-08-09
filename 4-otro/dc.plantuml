@@ -1,10 +1,15 @@
 @startuml
 
+title Empresa de Transporte
+
 class EmpresaGestora {
     - nombre: String
     - direccion: String
     - telefono: String
     - email: String
+    - empresasTransportistas: List<idEmpresaTransportista>
+    - paquetes: List<idPaquete>
+    - clientes: List<idCliente>
 
     + registrarPaquete(paquete: Paquete, cliente: Cliente): void
     + validarInformacion(paquete: Paquete): boolean
@@ -15,6 +20,7 @@ class EmpresaGestora {
 }
 
 class Cliente {
+    - idCliente: String
     - apellido: String
     - nombre: String
     - documento: String
@@ -27,22 +33,27 @@ class Cliente {
 }
 
 class Paquete {
-    - codigo: String
+    - idPaquete: String //codigoPaquete
     - peso: double
     - dimensiones: String
     - status: String
+    - envios: List<idEnvio>
+    - cliente: idCliente
 
     + actualizarEstado(nuevoEstado: String): void
 }
 
 class EmpresaTransportista {
+    - idEmpresaTransportista: String
     - nombre: String
     - direccion: String
     - telefono: String
     - email: String
+    - transportistas: List<idTransportista>
 }
 
 class Transportista {
+    - idTransportista: String
     - nombre: String
     - documento: String
     - tipo: String // Empresa o Monotributista
@@ -51,6 +62,7 @@ class Transportista {
     - polizaVehiculo: String
     - ultimaVTV: Date
     - cargaUtil: double
+    - rutas: List<idHojaDeRuta>
 
     + puedeTransportar(peso: double): boolean
     + recibirHojaDeRuta(hojaDeRuta: HojaDeRuta): void
@@ -61,11 +73,13 @@ class Transportista {
 }
 
 class Envio {
+    - idEnvio: String
     - fechaEnvio: Date
     - fechaEntrega: Date
     - estado: String // Recibido, En tránsito, Entregado, En almacén
     - intentos: int
     - proximaVisita: Date
+    - paquete: idPaquete
 
     + registrarIntentoFallido(motivo: String): void
     + programarNuevaVisita(fecha: Date): void
@@ -73,12 +87,15 @@ class Envio {
 }
 
 class HojaDeRuta {
+    - idHojaDeRuta: String
     - fecha: Date
+    - envio: idEnvio
     - detallesMercaderia: String
     - destino: String
     - receptor: String
     - fechaRecepcion: Date
     - motivoNoEntrega: String
+    - transportista: idTransportista
 
     + registrarEntrega(receptor: String, fecha: Date, hora: String): void
     + registrarNoEntrega(motivo: String, fecha: Date, hora: String): void
