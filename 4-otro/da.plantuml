@@ -5,7 +5,7 @@ start
 :Ingresar Información del Paquete;
 :Enviar Información del Paquete;
 
-|Empleado|
+|EmpresaGestora|
 :Validar Información del Paquete;
 :Guardar Información del Paquete;
 :Asignar Transportista;
@@ -15,19 +15,21 @@ start
 |Transportista|
 :Recibir Hoja de Ruta;
 :Iniciar Entrega;
-:Intentar Entrega;
 
-if (Entrega Exitosa?) then (yes)
-    :Registrar Entrega Exitosa;
-    :Notificar Cliente;
-else (no)
-    :Registrar Intento Fallido;
-    :Programar Nueva Visita;
-    :Notificar Cliente;
-    if (Tercer Intento Fallido?) then (yes)
-        :Notificar Cliente para Retirar Paquete;
+repeat
+    :Intentar Entrega;
+    if (Entrega Exitosa?) then (yes)
+        :Registrar Entrega Exitosa;
+        :Notificar Cliente;
+        stop
+    else (no)
+        :Registrar Intento Fallido;
+        :Notificar Cliente del Intento Fallido;
     endif
-endif
+:Programar Nueva Visita;
+repeat while (Intentos < 3);
 
+|EmpresaGestora|
+:Notificar Cliente para Retirar Paquete;
 stop
 @enduml

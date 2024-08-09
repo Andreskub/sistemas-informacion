@@ -5,6 +5,13 @@ class EmpresaGestora {
     - direccion: String
     - telefono: String
     - email: String
+
+    + registrarPaquete(paquete: Paquete, cliente: Cliente): void
+    + validarInformacion(paquete: Paquete): boolean
+    + asignarTransportista(paquete: Paquete): Transportista
+    + generarHojaDeRuta(paquete: Paquete, transportista: Transportista): HojaDeRuta
+    + notificarTransportista(transportista: Transportista, hojaDeRuta: HojaDeRuta): void
+    + notificarCliente(cliente: Cliente, mensaje: String): void
 }
 
 class Cliente {
@@ -15,6 +22,8 @@ class Cliente {
     - entreCalles: String
     - localidad: String
     - provincia: String
+
+    + recibirNotificacion(mensaje: String): void
 }
 
 class Paquete {
@@ -22,6 +31,8 @@ class Paquete {
     - peso: double
     - dimensiones: String
     - status: String
+
+    + actualizarEstado(nuevoEstado: String): void
 }
 
 class EmpresaTransportista {
@@ -42,6 +53,11 @@ class Transportista {
     - cargaUtil: double
 
     + puedeTransportar(peso: double): boolean
+    + recibirHojaDeRuta(hojaDeRuta: HojaDeRuta): void
+    + intentarEntrega(paquete: Paquete): boolean
+    + registrarEntregaExitosa(paquete: Paquete): void
+    + registrarIntentoFallido(paquete: Paquete): void
+    + programarNuevaVisita(paquete: Paquete): void
 }
 
 class Envio {

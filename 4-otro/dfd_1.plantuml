@@ -1,31 +1,35 @@
 @startuml
 actor Cliente
-actor Empleado
 actor Transportista
 
-rectangle Sistema {
-    Cliente -- (Registrar Paquete)
-    (Registrar Paquete) --> (Base de Datos)
+rectangle "Sistema de Gestión de Envíos" {
+    Process1 : "1.0 Gestión de Clientes y Paquetes"
+    Process2 : "2.0 Asignación de Transportista"
+    Process3 : "3.0 Generación de Hoja de Ruta"
+    Process4 : "4.0 Gestión de Entrega"
+    Process5 : "5.0 Notificación al Cliente"
 
-    Empleado -- (Registrar Cliente)
-    (Registrar Cliente) --> (Base de Datos)
-
-    Empleado -- (Asignar Transportista)
-    (Asignar Transportista) --> (Base de Datos)
-
-    Empleado -- (Generar Hoja de Ruta)
-    (Generar Hoja de Ruta) --> (Base de Datos)
-
-    Transportista -- (Actualizar Estado del Envío)
-    (Actualizar Estado del Envío) --> (Base de Datos)
-
-    Transportista -- (Registrar Intento de Entrega)
-    (Registrar Intento de Entrega) --> (Base de Datos)
-
-    Cliente -- (Reprogramar Entrega)
-    (Reprogramar Entrega) --> (Base de Datos)
-
-    (Base de Datos) --> (Notificar Cliente)
-    (Notificar Cliente) --> Cliente
+    D1 : "D1 Clientes"
+    D2 : "D2 Paquetes"
+    D3 : "D3 Transportistas"
+    D4 : "D4 Envíos"
 }
+
+Cliente --> Process1 : Registrar Paquete
+Process1 --> D1 : Almacenar Cliente
+Process1 --> D2 : Almacenar Paquete
+Process1 -> Process2 : Solicitar Asignación de Transportista
+
+Process2 --> D3 : Consultar Transportistas
+Process2 --> D3 : Asignar Transportista
+Process2 -> Process3 : Generar Hoja de Ruta
+
+Process3 --> D4 : Almacenar Hoja de Ruta
+Process3 -> Process4 : Enviar Hoja de Ruta al Transportista
+
+Transportista --> Process4 : Intentar Entrega
+Process4 -> D4 : Actualizar Estado del Envío
+Process4 -> Process5 : Notificar Estado de la Entrega
+
+Process5 --> Cliente : Notificar Cliente
 @enduml
