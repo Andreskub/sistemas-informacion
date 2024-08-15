@@ -1,0 +1,29 @@
+@startuml Diagrama Caso Uso 1
+
+title Contratar Póliza de Seguro
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor ProductorSeguro as ps
+
+rectangle Sistema {
+  usecase "Seleccionar tipo de póliza" as UC1
+  usecase "Ingresar datos del cliente" as UC2
+  usecase "Calcular costo de la póliza" as UC3
+  usecase "Generar póliza" as UC4
+  usecase "Confirmar contratación" as UC5
+}
+
+Sistema .. ps
+
+c -right- UC1
+c -- UC2
+ps -left- UC2
+ps -left- UC3
+ps -left- UC4
+c -- UC5
+
+
+@enduml

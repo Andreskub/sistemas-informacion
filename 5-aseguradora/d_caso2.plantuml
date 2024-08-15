@@ -1,0 +1,28 @@
+@startuml Diagrama Caso Uso 2
+
+title Reportar Siniestro
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor TallerReparacion as tr
+
+rectangle Sistema {
+  usecase "Ingresar detalles del siniestro" as UC1
+  usecase "Verificar datos del siniestro" as UC2
+  usecase "Asignar taller de reparación" as UC3
+  usecase "Generar reporte de siniestro" as UC4
+  usecase "Recepción del reporte de siniestro" as UC5
+}
+
+Sistema .. tr
+
+c -right- UC1
+c -right- UC2
+tr -left- UC2
+tr -left- UC3
+tr -left- UC4
+c -- UC5
+
+@enduml

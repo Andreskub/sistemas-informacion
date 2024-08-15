@@ -1,0 +1,82 @@
+@startuml
+
+title Compañía Aseguradora
+
+abstract class Poliza {
+  - numeroPoliza: int
+  - fechaInicio: Date
+  - fechaFin: Date
+  + calcularCosto()
+  + renovarPoliza()
+  + cancelarPoliza()
+}
+
+class Cliente {
+  - nombre: String
+  - apellido: String
+  - telefono: String
+  - direccion: String
+  - correoElectronico: String
+
+  + contratarPoliza()
+  + solicitarGrua()
+  + reportarSiniestro()
+}
+
+class ProductorSeguro {
+  - nombre: String
+  - matricula: String
+  + gestionarPoliza()
+}
+
+class Vehiculo {
+  - modelo: String
+  - marca: String
+  - año: int
+  - color: String
+  - kilometraje: int
+  - fechaVTV: Date
+  + actualizarKilometraje()
+  + verificarVTV()
+}
+
+class ServicioDeGrua {
+  - fecha: Date
+  - ubicacionIncidente: String
+  - kilometrajeTraslado: int
+  + solicitarServicio()
+}
+
+class TallerReparacion {
+  - nombre: String
+  - direccion: String
+  - telefono: String
+  + registrarReparacion()
+  + abonarReparacion()
+}
+
+class Siniestro {
+  - fecha: Date
+  - tipo: String
+  - ubicacion: String
+  - descripcion: String
+  + registrarSiniestro()
+}
+
+Cliente "1..*" -- "0..*" Vehiculo
+Cliente -- ProductorSeguro
+Cliente "1" o-- "0..*" Poliza
+
+Poliza <|-- PolizaDeVida
+Poliza <|-- PolizaDeHogar
+Poliza <|-- PolizaVehicular
+
+PolizaVehicular -- "1" Vehiculo
+
+ProductorSeguro "1" -- "1..*" Poliza
+ProductorSeguro "1..*" -- "1..*" ServicioDeGrua
+ProductorSeguro "1..*" -- "1..*" TallerReparacion
+
+TallerReparacion -- Siniestro
+
+@enduml

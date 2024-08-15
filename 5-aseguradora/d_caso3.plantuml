@@ -1,0 +1,26 @@
+@startuml Diagrama Caso Uso 3
+
+title Solicitar Servicio de Grúa
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor EmpresaGestora as e
+
+rectangle Sistema {
+  usecase "Ingresar ubicación del incidente" as UC1
+  usecase "Verificar elección del servicio" as UC2
+  usecase "Asignar grúa al cliente" as UC3
+  usecase "Notificar llegada de la grúa" as UC4
+}
+
+Sistema .. e
+
+c -right- UC1
+c -- UC2
+e -left- UC2
+e -left- UC3
+c -- UC4
+
+@enduml
