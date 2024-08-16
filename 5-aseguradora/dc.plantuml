@@ -14,9 +14,11 @@ abstract class Poliza {
 class Cliente {
   - nombre: String
   - apellido: String
+  - dni: int
   - telefono: String
   - direccion: String
   - correoElectronico: String
+  - vehiculos: List<idVehiculo>
 
   + contratarPoliza()
   + solicitarGrua()
@@ -26,21 +28,30 @@ class Cliente {
 class ProductorSeguro {
   - nombre: String
   - matricula: String
+  - clientes: List<dni>
+  - polizas: List<numeroPoliza>
+  - talleres: List<idTaller>
+
   + gestionarPoliza()
 }
 
 class Vehiculo {
+  - idVehiculo: String
   - modelo: String
   - marca: String
   - año: int
   - color: String
+  - patente: String
   - kilometraje: int
   - fechaVTV: Date
+  - numeroPoliza
+
   + actualizarKilometraje()
   + verificarVTV()
 }
 
 class ServicioDeGrua {
+  - idServicioGrua: String
   - fecha: Date
   - ubicacionIncidente: String
   - kilometrajeTraslado: int
@@ -48,18 +59,22 @@ class ServicioDeGrua {
 }
 
 class TallerReparacion {
+  - idTaller: String
   - nombre: String
   - direccion: String
   - telefono: String
+
   + registrarReparacion()
   + abonarReparacion()
 }
 
 class Siniestro {
+  - idSiniestro: String
   - fecha: Date
   - tipo: String
   - ubicacion: String
   - descripcion: String
+
   + registrarSiniestro()
 }
 
