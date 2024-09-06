@@ -1,0 +1,24 @@
+@startuml Diagrama Caso Uso 1
+
+title Registrar Visita
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Propietario as p
+actor SistemaAccesos as sa
+
+rectangle Sistema {
+  usecase "Enviar solicitud de visita" as UC1
+  usecase "Recibir confirmación de la visita" as UC2
+  usecase "Registrar datos del visitante" as UC3
+}
+
+Sistema .. sa
+
+p -- UC1
+p -- UC2
+
+UC3 -- sa
+
+@enduml

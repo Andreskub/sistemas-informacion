@@ -1,0 +1,53 @@
+@startuml diagram
+
+title Diagrama de clases
+
+abstract class Visita {
+    - nombre: String
+    - apellido: String
+    - dniVisita: String
+    - fechaProyectada: Date
+    - vehiculo: Vehiculo
+    - confirmada: Boolean
+    
+    + confirmarVisita()
+}
+
+class Propietario {
+    - nombre: String
+    - apellido: String
+    - dni: String
+    - email: String
+    + enviarCorreoVisita(Visita visita)
+}
+
+class Visitante extends Visita {
+    + confirmarVisita()
+}
+
+class Proveedor extends Visita {
+    - art: String
+    - cantPersonas: int
+    + confirmarVisita()
+}
+
+class Formulario {
+    - idFormulario: int
+    - fechaProyectada: Date
+    - dniVisita: String
+    - nombreVisita: String
+    + generarFormulario(Propietario propietario, Visita visita)
+}
+
+class Vehiculo {
+    - matricula: String
+    - modelo: String
+    - poliza: String
+    + registrarVehiculo()
+}
+
+Formulario "1..*" <-- "1" Propietario
+Formulario "1..*" <-- "1" Visita
+Formulario "1" o-- "1" Vehiculo
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml Diagrama Caso Uso 2
+
+title Verificar Ingreso de Vehículo
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Guardia as g
+actor SistemaAccesos as sa
+
+rectangle Sistema {
+  usecase "Consultar datos del vehículo" as UC1
+  usecase "Verificar póliza del vehículo" as UC2
+  usecase "Permitir ingreso" as UC3
+}
+
+Sistema .. sa
+
+g -right- UC1
+g -- UC2
+UC3 -- sa 
+
+@enduml
