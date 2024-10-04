@@ -1,0 +1,61 @@
+@startuml
+
+title Diagrama de Clases
+
+interface GestionableCheque {
+    + esDiferido(): Boolean
+}
+
+abstract class Cheque implements GestionableCheque {
+    - numero: String
+    - monto: Double
+    - fechaEmision: Date
+    - fechaPago: Date
+    - estado: EstadoCheque
+    + esDiferido(): Boolean
+}
+
+class ChequeTercero extends Cheque {
+    - cliente: Cliente
+}
+
+class ChequePropio extends Cheque {
+    + esChequePropio(): Boolean
+}
+
+class Cliente {
+    - nombre: String
+    - montoCredito: Double
+    - fechaVencimientoCredito: Date
+    - comision: Double
+    + obtenerCreditoDisponible(): Double
+}
+
+class Proveedor {
+    - nombre: String
+    + reclamarCheque(): void
+}
+
+class Banco {
+    - nombre: String
+    + depositarCheque(Cheque c): void
+}
+
+class EstadoCheque {
+    - rechazado: Boolean
+    + gestionarRechazo(): void
+}
+
+class CarteraCheques {
+    - cheques: List<Cheque>
+    + agregarCheque(Cheque c): void
+    + listarCheques(): List<Cheque>
+    + chequesAdepositar(): List<Cheque>
+}
+
+Cliente "1" -- "0..*" ChequeTercero
+Proveedor "1" -- "0..*" Cheque
+Banco "1" -- "0..*" Cheque
+CarteraCheques "1" -- "0..*" Cheque
+Cheque "1" -- "1" EstadoCheque
+@enduml

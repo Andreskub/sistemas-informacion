@@ -1,0 +1,24 @@
+@startuml Diagrama Caso Uso 2
+
+title Reclamar Cheque
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Proveedor as p
+actor SistemaCheques as sc
+
+rectangle Sistema {
+  usecase "Reclamar cheque" as UC1
+  usecase "Verificar estado del cheque" as UC2
+  usecase "Reembolsar monto" as UC3
+}
+
+Sistema .. sc
+
+p -- UC1
+p -- UC2
+
+UC3 -- sc
+
+@enduml

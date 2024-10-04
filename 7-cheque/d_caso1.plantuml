@@ -1,0 +1,24 @@
+@startuml Diagrama Caso Uso 1
+
+title Depositar Cheque
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Banco as b
+actor SistemaCheques as sc
+
+rectangle Sistema {
+  usecase "Depositar cheque" as UC1
+  usecase "Verificar estado del cheque" as UC2
+  usecase "Actualizar saldo" as UC3
+}
+
+Sistema .. sc
+
+b -- UC1
+b -- UC2
+
+UC3 -- sc
+
+@enduml

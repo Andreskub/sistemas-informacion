@@ -1,0 +1,24 @@
+@startuml Diagrama Caso Uso 3
+
+title Consultar Cartera de Cheques
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor SistemaCheques as sc
+
+rectangle Sistema {
+  usecase "Consultar cartera de cheques" as UC1
+  usecase "Filtrar cheques por estado" as UC2
+  usecase "Mostrar lista de cheques" as UC3
+}
+
+Sistema .. sc
+
+c -- UC1
+c -- UC2
+
+UC3 -- sc
+
+@enduml
