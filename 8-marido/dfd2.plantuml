@@ -1,0 +1,44 @@
+@startuml DFD Nivel 2
+
+title Diagrama de Flujo de Datos - Nivel 2
+
+!define RECTANGLE class
+skinparam rectangle {
+  BackgroundColor #E0E0E0
+  BorderColor black
+}
+
+RECTANGLE Cliente {
+  :Solicitar servicio;
+  :Recibir notificación;
+}
+
+RECTANGLE Sistema {
+  :Procesar solicitud;
+  :Confirmar solicitud;
+  :Notificar cliente;
+  :Registrar servicio;
+  :Gestionar inspecciones;
+  :Generar factura;
+}
+
+RECTANGLE AlmacenServicio {
+  :Lista de servicios;
+}
+
+RECTANGLE AlmacenInspeccion {
+  :Historial de inspecciones;
+}
+
+RECTANGLE AlmacenFactura {
+  :Lista de facturas;
+}
+
+Cliente -down-> Sistema : Solicitar servicio
+Sistema -down-> AlmacenServicio : Registrar servicio
+AlmacenServicio -down-> Sistema : Confirmar solicitud
+Sistema -down-> AlmacenInspeccion : Gestionar inspecciones
+Sistema -down-> AlmacenFactura : Generar factura
+Sistema -down-> Cliente : Notificar al cliente
+
+@enduml

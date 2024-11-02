@@ -1,0 +1,27 @@
+@startuml Diagrama Caso Uso 4
+
+title Realizar Inspección
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente as c
+actor Sistema as s
+
+rectangle Sistema {
+  usecase "Solicitar inspección" as UC1
+  usecase "Registrar detalles de la inspección" as UC2
+  usecase "Calcular costos de la inspección" as UC3
+  usecase "Notificar resultados de la inspección" as UC4
+}
+
+Sistema .. s
+
+c -- UC1
+s -left- UC1
+s -left- UC2
+s -left- UC3
+s -left- UC4
+c -- UC4
+
+@enduml

@@ -1,0 +1,137 @@
+@startuml
+class Empresa {
+    - idEmpresa: String
+    - nombre: String
+    - direccion: String
+    - telefono: String
+    - email: String
+    - servicios: List<idServicio>
+    - clientes: List<idCliente>
+    + registrarEmpleado(empleado: Empleado): void
+    + registrarServicio(servicio: Servicio): void
+    + registrarHistorialDeServicios(servicio: Servicio): void
+}
+
+class Cliente {
+    - idCliente: String
+    - nombre: String
+    - direccion: String
+    - telefono: String
+    - email: String
+    + solicitarServicio(tipoServicio: TipoServicio): void
+}
+
+interface TipoServicio {
+    + calcularCosto(): double
+    + obtenerDuracionEstimada(): int
+}
+
+class Electricidad implements TipoServicio {
+    - descripcion: String
+}
+
+class Plomeria implements TipoServicio {
+    - descripcion: String
+}
+
+class Gasista implements TipoServicio {
+    - descripcion: String
+}
+
+class Servicio {
+    - idServicio: String
+    - fechaInicio: Date
+    - fechaFin: Date
+    - estado: String
+    - tipoServicio: TipoServicio
+    - empleados: List<Empleado>
+    - idInspeccion
+    - idFactura
+
+    + calcularDuracion(): int
+    + iniciarServicio(): void
+    + agregarEmpleado(empleado: Empleado, rol: String, comentario: String): void
+}
+
+class Inspeccion {
+    - idInspeccion: String
+    - fecha: Date
+    - observaciones: String
+    - costoMateriales: double
+    - costoManoObra: double
+    - total: double
+    + realizarInspeccion(): void
+    + calcularTotal(): double
+}
+
+class Empleado {
+    - idEmpleado: String
+    - nombre: String
+    - seguroART: boolean
+    - certificaciones: List<idCertificacion>
+    - herramientas: List<idHerramienta>
+
+    + agregarComentario(comentario: String): void
+}
+
+class Certificacion {
+    - idCertificacion: String
+    - rubro: String
+    - fechaExpedicion: Date
+    - fechaVencimiento: Date
+
+    + esValida(): boolean
+}
+
+class Herramienta {
+    - idHerramienta: String
+    - nombre: String
+    - estado: String
+}
+
+class Inventario {
+    - idInventario: String
+    - ubicacion: String
+    - herramientas: List<idHerramienta>
+
+    + agregarHerramienta(herramienta: Herramienta): void
+    + actualizarEstado(herramienta: Herramienta, estado: String): void
+}
+
+class Factura {
+    - idFactura: String
+    - fechaEmision: Date
+    - montoTotal: double
+
+    + emitirFactura(): void
+}
+
+class CotizacionMaterial {
+    - nombreMaterial: String
+    - precio: double
+    + actualizarPrecio(precio: double): void
+}
+
+class AsignacionHerramienta {
+    - idAsignacion: String
+    - idHerramienta
+    - fechaAsignacion: Date
+    - fechaDevolucion: Date
+
+    + asignarHerramienta(herramienta: Herramienta, empleado: Empleado, servicio: Servicio): void
+}
+
+Empresa "1" o-- "1..*" Cliente
+Empresa "1" *-- "1..*" Empleado
+Empresa "1" *-- "1..*" Servicio
+Empresa "1" -- "1" Inventario
+Inventario "1" o-- "1..*" Herramienta
+Servicio "1" o-- "1" Inspeccion
+Servicio "1" o-- "1" Factura
+Servicio "1" o-- "0..*" AsignacionHerramienta
+Inspeccion "1" o-- "1..*" CotizacionMaterial
+Empleado "1" -- "0..*" Certificacion
+Servicio "1" -- "1" TipoServicio
+Cliente "1" -- "1..*" Servicio
+Empleado "1" -- "0..*" Herramienta
+@enduml

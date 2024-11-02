@@ -1,0 +1,31 @@
+@startuml DFD Nivel 1
+
+title Diagrama de Flujo de Datos - Nivel 1
+
+!define RECTANGLE class
+skinparam rectangle {
+  BackgroundColor #E0E0E0
+  BorderColor black
+}
+
+RECTANGLE Cliente {
+  :Solicitar servicio;
+  :Recibir notificación;
+}
+
+RECTANGLE Empresa {
+  :Confirmar solicitud;
+  :Registrar servicio;
+}
+
+RECTANGLE Sistema {
+  :Procesar solicitud;
+  :Notificar cliente;
+}
+
+Cliente -down-> Sistema : Solicitar servicio
+Sistema -down-> Empresa : Confirmar solicitud
+Empresa -down-> Sistema : Registrar servicio
+Sistema -down-> Cliente : Notificar al cliente
+
+@enduml

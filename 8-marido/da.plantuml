@@ -1,0 +1,43 @@
+@startuml
+
+title Empresa de Mantenimiento - Proceso de Servicio
+
+|Cliente|
+start
+:Solicitar Servicio;
+:Elegir Tipo de Servicio;
+:Enviar Solicitud de Servicio;
+
+|Empresa|
+:Registrar Solicitud;
+if (Inspección Previa?) then (sí)
+    :Asignar Empleado para Inspección;
+else (no)
+endif
+:Asignar Empleados y Herramientas;
+
+|Empleado|
+:Realizar Inspección Inicial;
+:Calcular Costo de Materiales y Mano de Obra;
+:Enviar Informe de Inspección;
+
+|Empresa|
+:Confirmar Costo al Cliente;
+
+|Cliente|
+:Aceptar Costo del Servicio;
+
+|Empresa|
+:Iniciar Servicio;
+
+|Empleado|
+repeat
+    :Realizar Tareas de Servicio;
+repeat while (Servicio Completo?) is (no)
+
+|Empresa|
+:Generar Factura;
+:Registrar Historial del Servicio;
+
+stop
+@enduml

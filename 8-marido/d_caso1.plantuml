@@ -1,0 +1,23 @@
+@startuml Solicitar Servicio
+
+title Solicitar Servicio
+left to right direction
+
+actor Cliente as c
+actor Empresa as e
+
+rectangle Sistema {
+  usecase "Solicitar servicio" as UC1
+  usecase "Confirmar solicitud" as UC2
+  usecase "Notificar al cliente" as UC3
+}
+
+Sistema .. e
+
+c -- UC1
+e -left- UC1
+e -left- UC2
+e -left- UC3
+c -- UC3
+
+@enduml
